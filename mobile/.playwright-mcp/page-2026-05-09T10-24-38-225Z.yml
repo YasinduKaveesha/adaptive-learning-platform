@@ -1,0 +1,19 @@
+- generic [ref=e19]:
+  - generic [ref=e22] [cursor=pointer]: ←
+  - generic [ref=e23]:
+    - generic [ref=e24]: Your First Adventure
+    - generic [ref=e25]: Based on your strengths, we picked this for you!
+  - generic [ref=e29]:
+    - generic [ref=e30]: Memory Quest
+    - generic [ref=e31]: Help the fox remember the treasure path!
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]: 🧠
+        - generic [ref=e35]: Memory
+      - generic [ref=e36]:
+        - generic [ref=e37]: ⭐
+        - generic [ref=e38]: Medium
+      - generic [ref=e39]:
+        - generic [ref=e40]: 🕒
+        - generic [ref=e41]: 5 min
+  - generic [ref=e44] [cursor=pointer]: Play

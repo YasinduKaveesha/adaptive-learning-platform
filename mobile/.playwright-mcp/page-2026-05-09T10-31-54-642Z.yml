@@ -1,0 +1,12 @@
+- generic [ref=e15]:
+  - generic [ref=e18]:
+    - generic [ref=e20] [cursor=pointer]: ✕
+    - generic [ref=e22]: 1/1
+  - generic [ref=e29]:
+    - generic [ref=e30]:
+      - generic [ref=e32] [cursor=pointer]: A
+      - generic [ref=e34] [cursor=pointer]: B
+      - generic [ref=e36] [cursor=pointer]: C
+    - generic [ref=e37]:
+      - generic [ref=e39] [cursor=pointer]: D
+      - generic [ref=e41] [cursor=pointer]: E
