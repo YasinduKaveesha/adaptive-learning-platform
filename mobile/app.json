@@ -9,20 +9,12 @@
       "android",
       "web"
     ],
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "resizeMode": "contain",
-      "backgroundColor": "#6C3CC1"
-    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "lk.r26it088.diagnostic"
     },
     "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#6C3CC1"
-      },
       "package": "lk.r26it088.diagnostic"
     },
     "plugins": [

@@ -1,100 +1,110 @@
 # Component A — Diagnostic Engine
-## Project R26-IT-088
+## Project R26-IT-088 | PP1 Demo Branch
 
-Adaptive cognitive screening engine that classifies Grade 5 students into
-Group A / B / C using Thompson Sampling + IRT 2PL, with per-domain cognitive
-profile output.
-
----
-
-## Architecture
-
-```
-component-a-diagnostic-engine/
-├── backend/          FastAPI service (Python)
-│   ├── core/         Algorithm modules (IRT, TS, classifier, multimodal)
-│   ├── api/v1/       REST endpoints (screening.py)
-│   ├── models/       Pydantic schemas
-│   ├── store/        In-memory session store (SQLite in Phase 3)
-│   └── main.py       App entry point
-├── mobile/           React Native app (Expo)
-│   └── src/
-│       ├── screens/  Welcome, Screening, Results
-│       ├── components/games/  4 cognitive game UIs
-│       └── services/ API client
-└── tests/            pytest suite for backend algorithms
-```
+Child-friendly cognitive screening mobile app for Grade 5 students.  
+This branch (`demo_PP1`) contains the **mobile app only** — no backend required.
 
 ---
 
-## Quick Start
+## What This Demo Does
 
-### Backend
+1. Enter a student name on the Welcome screen and tap **Let's Go**
+2. Tap **Play** on the Game Intro screen
+3. Answer 5 image-based questions (pattern recognition, memory, reasoning)
+4. View a Results screen with score, per-question breakdown, and feedback
+
+Everything runs fully offline — no server needed.
+
+---
+
+## Prerequisites
+
+Install these once on your machine before anything else.
+
+| Tool | Version | Download |
+|------|---------|----------|
+| Node.js | 18 or higher | https://nodejs.org |
+| Expo Go (phone) | latest | App Store / Play Store |
+
+> You do **not** need Android Studio or Xcode. Expo Go on your phone is enough.
+
+---
+
+## Setup & Run
 
 ```bash
-cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
-```
-
-Swagger UI: http://localhost:8000/docs
-
-### Mobile (Expo)
-
-```bash
+# 1. Go into the mobile folder
 cd mobile
+
+# 2. Install all dependencies (only needed once, or after pulling new changes)
 npm install
+
+# 3. Start the dev server
 npx expo start
 ```
 
-- Press `a` for Android emulator, `i` for iOS simulator
-- Scan QR with Expo Go on physical device
+After running `npx expo start` a QR code appears in the terminal.
 
-> **Android emulator**: API connects to `http://10.0.2.2:8000`
-> **iOS / physical device**: API connects to `http://localhost:8000`
-> Override with env var `EXPO_PUBLIC_API_BASE_URL`
+- **Physical phone** — open Expo Go and scan the QR code
+- **Android emulator** — press `a` in the terminal
+- **Web browser** — press `w` in the terminal (limited, mobile view recommended)
 
-### Tests
+> **Important for physical phone:** Your phone and laptop must be on the **same WiFi network**, otherwise Expo Go cannot connect.
+
+---
+
+## If Something Looks Wrong (Cache Fix)
+
+If images or screens don't load correctly after pulling changes, clear the Metro cache:
 
 ```bash
-pip install pytest
-pytest tests/ -v
+npx expo start --clear
 ```
 
 ---
 
-## Key API Endpoints
+## Project Structure
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `POST` | `/api/v1/students/{id}/screening/start` | Start screening session |
-| `POST` | `/api/v1/screening/sessions/{id}/respond` | Submit item response |
-| `GET`  | `/api/v1/students/{id}/classification` | Get latest classification |
-| `GET`  | `/api/v1/students/{id}/profile` | Get domain ability profile |
-| `GET`  | `/health` | Service health check |
+```
+mobile/
+├── App.tsx                  # Navigation setup
+├── assets/                  # All images used in the game
+│   ├── q1.png – Q5.png      # Question images
+│   ├── fox_excellent.png    # Results celebration image
+│   ├── gamebg.png           # Game screen background
+│   └── screeningBG.png      # Results screen background
+└── src/
+    ├── screens/
+    │   ├── WelcomeScreen.tsx
+    │   ├── GameIntroScreen.tsx
+    │   ├── Game1Screen.tsx        # 5-question game
+    │   └── Game1ResultsScreen.tsx # Score & summary
+    ├── constants/
+    │   └── theme.ts         # Colors, spacing, fonts
+    └── types/
+        └── index.ts         # Navigation types
+```
 
 ---
 
-## Algorithms
+## Dependencies
 
-| Module | Algorithm | Reference |
-|--------|-----------|-----------|
-| `core/irt.py` | 2PL IRT, EAP ability estimation | [2][6] |
-| `core/thompson_sampling.py` | Non-stationary windowed TS | [3] |
-| `core/stopping_rule.py` | Confidence-aware stopping (≥ 90%) | [37] |
-| `core/classifier.py` | Random Forest tri-group classifier | [27] |
-| `core/multimodal.py` | Reaction time + hesitation → engagement | [10][12] |
+All dependencies are listed in `mobile/package.json` and installed automatically via `npm install`. No separate requirements file is needed.
 
----
+Key packages:
 
-## PP1 Demo Flow
-
-1. Launch backend: `uvicorn main:app --reload`
-2. Launch mobile: `npx expo start --android`
-3. Enter student name → tap **Begin Screening**
-4. Answer 6–8 cognitive mini-tasks
-5. Watch confidence tracker reach 90% threshold
-6. Results screen shows Group A/B/C + domain profile
+| Package | Purpose |
+|---------|---------|
+| `expo ~51.0.0` | App framework |
+| `react-native 0.74.1` | UI framework |
+| `@react-navigation/native` | Navigation core |
+| `@react-navigation/native-stack` | Stack navigation |
+| `@expo-google-fonts/poppins` | Poppins font family |
+| `expo-font` | Font loading engine |
+| `expo-haptics` | Haptic feedback |
+| `react-native-reanimated` | Animations |
+| `react-native-safe-area-context` | Safe area handling |
+| `react-native-screens` | Native screen containers |
 
 ---
 

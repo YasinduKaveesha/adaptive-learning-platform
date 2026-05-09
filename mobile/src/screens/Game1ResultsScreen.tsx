@@ -47,7 +47,7 @@ export default function Game1ResultsScreen({ route, navigation }: Props) {
   const accuracy = pct === 100 ? 'Outstanding!' : pct >= 60 ? 'Good Job!' : 'Try Again!';
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       {/* Background */}
       <Image source={require('../../assets/screeningBG.png')} style={styles.bg} resizeMode="cover" />
       <View style={styles.skyOverlay} pointerEvents="none" />
@@ -184,9 +184,10 @@ export default function Game1ResultsScreen({ route, navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#C8EFF8' },
+  safe: { flex: 1, backgroundColor: '#c8ede0' },
   bg: {
-    position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+    position: 'absolute',
+    top: 0, left: 0, right: 0, bottom: 0,
     width: '100%', height: '100%',
   },
   skyOverlay: {

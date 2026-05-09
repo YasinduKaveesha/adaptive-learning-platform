@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useCallback, useRef, useState } from 'react';
+import { Asset } from 'expo-asset';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Animated,
   Image,
@@ -65,6 +66,14 @@ export default function Game1Screen({ navigation, route }: Props) {
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const scaleAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    // Preload results screen assets while user plays
+    Asset.loadAsync([
+      require('../../assets/screeningBG.png'),
+      require('../../assets/fox_excellent.png'),
+    ]);
+  }, []);
 
   const currentQ = QUESTIONS[questionIndex];
   const totalQuestions = QUESTIONS.length;
@@ -142,7 +151,7 @@ export default function Game1Screen({ navigation, route }: Props) {
   }
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       {/* Full-screen background */}
       <Image source={require('../../assets/gamebg.png')} style={styles.bg} resizeMode="cover" />
 
@@ -219,7 +228,7 @@ export default function Game1Screen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: '#D8F2E5',
+    backgroundColor: '#7dc95a',
   },
   bg: {
     position: 'absolute',

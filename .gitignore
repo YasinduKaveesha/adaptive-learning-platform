@@ -1,2 +1,4 @@
 mobile/node_modules/
 node_modules/
+mobile/.expo/
+.expo/

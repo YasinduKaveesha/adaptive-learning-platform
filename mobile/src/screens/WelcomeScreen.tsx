@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Asset } from 'expo-asset';
 import React, { useEffect, useState } from 'react';
 import { Animated, Image, Pressable, StyleSheet, Text, TextInput, useWindowDimensions, View } from 'react-native';
 import { ANIMATIONS, COLORS, RADIUS, SPACING } from '../constants/theme';
@@ -23,6 +24,11 @@ export default function WelcomeScreen({ navigation }: Props) {
       duration: ANIMATIONS.normal,
       useNativeDriver: true,
     }).start();
+    // Preload GameIntro + Game1 screen assets in the background
+    Asset.loadAsync([
+      require('../../assets/gamebg.png'),
+      require('../../assets/quest1.png'),
+    ]);
   }, [fadeInAnim]);
 
   const handleStart = () => {

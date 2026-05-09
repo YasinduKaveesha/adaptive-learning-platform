@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useRef } from 'react';
+import { Asset } from 'expo-asset';
+import React, { useEffect, useRef } from 'react';
 import {
   Animated,
   Image,
@@ -30,6 +31,17 @@ export default function GameIntroScreen({ navigation, route }: Props) {
   const { studentId, studentName, language } = route.params;
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
+  useEffect(() => {
+    // Preload all question images while user reads the intro
+    Asset.loadAsync([
+      require('../../assets/q1.png'),
+      require('../../assets/Q2.png'),
+      require('../../assets/Q3.png'),
+      require('../../assets/Q4.png'),
+      require('../../assets/Q5.png'),
+    ]);
+  }, []);
+
   function handleStartPress() {
     Animated.sequence([
       Animated.timing(scaleAnim, { toValue: 0.96, duration: 80, useNativeDriver: true }),
@@ -40,7 +52,7 @@ export default function GameIntroScreen({ navigation, route }: Props) {
   }
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       {/* Full-screen background */}
       <Image
         source={require('../../assets/gamebg.png')}
@@ -109,7 +121,7 @@ export default function GameIntroScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: '#F5FBF7',
+    backgroundColor: '#7dc95a',
   },
   bg: {
     position: 'absolute',
