@@ -107,7 +107,3 @@ Key packages:
 | `react-native-screens` | Native screen containers |
 
 ---
-
-## Owner
-
-IT22193568 — Component A
