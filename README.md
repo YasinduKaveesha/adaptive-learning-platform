@@ -1,4 +1,4 @@
-# Component A — Diagnostic Engine
+# adaptive-learning-platform
 ## Project R26-IT-088 | PP1 Demo Branch
 
 Child-friendly cognitive screening mobile app for Grade 5 students.  
