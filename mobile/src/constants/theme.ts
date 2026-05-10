@@ -90,6 +90,30 @@ export const DOMAIN_CONFIG: Record<
     icon: '💡',
     glow: 'rgba(255, 217, 0, 0.20)',
   },
+  behavioral: {
+    label: 'Behavioral',
+    shortLabel: 'Behavior',
+    color: '#FF6B35',
+    bg: '#FFF1EC',
+    icon: '🎭',
+    glow: 'rgba(255, 107, 53, 0.18)',
+  },
+  emotional: {
+    label: 'Emotional',
+    shortLabel: 'Feelings',
+    color: '#C084FC',
+    bg: '#FAF0FF',
+    icon: '💜',
+    glow: 'rgba(192, 132, 252, 0.18)',
+  },
+  learning_preference: {
+    label: 'Learning Style',
+    shortLabel: 'Style',
+    color: '#22D3EE',
+    bg: '#F0FEFF',
+    icon: '🎨',
+    glow: 'rgba(34, 211, 238, 0.18)',
+  },
 };
 
 export const GROUP_CONFIG: Record<

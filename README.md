@@ -19,9 +19,19 @@ component-a-diagnostic-engine/
 │   └── main.py       App entry point
 ├── mobile/           React Native app (Expo)
 │   └── src/
-│       ├── screens/  Welcome, Screening, Results
-│       ├── components/games/  4 cognitive game UIs
-│       └── services/ API client
+│       ├── screens/
+│       │   ├── WelcomeScreen       Entry + name input
+│       │   ├── ScreeningScreen     Adaptive cognitive screening
+│       │   ├── ResultsScreen       Category scores + badge
+│       │   ├── GameIntroScreen     Mode selection (Classroom / Playground)
+│       │   ├── PlaygroundHubScreen Adventure map home (progression path)
+│       │   ├── Game1Screen         Classroom visual reasoning game
+│       │   ├── Game1ResultsScreen  Classroom game results
+│       │   ├── TreasurePathScreen  Playground: arrow memory sequence
+│       │   ├── PatternTrainScreen  Playground: pattern completion
+│       │   └── MatchShadowScreen   Playground: shape matching
+│       ├── components/games/       Game UI components + shared popup
+│       └── services/               API client
 └── tests/            pytest suite for backend algorithms
 ```
 

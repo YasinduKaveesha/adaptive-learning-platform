@@ -6,7 +6,10 @@ export type Domain =
   | 'working_memory'
   | 'pattern_recognition'
   | 'attention'
-  | 'logical_reasoning';
+  | 'logical_reasoning'
+  | 'behavioral'
+  | 'emotional'
+  | 'learning_preference';
 
 export type GameType =
   | 'sequence_recall'
@@ -16,7 +19,9 @@ export type GameType =
   | 'syllogism'
   | 'analogy'
   | 'ordering'
-  | 'time_reasoning';
+  | 'time_reasoning'
+  | 'self_report'
+  | 'preference_pick';
 
 export type Classification = 'group_a' | 'group_b' | 'group_c';
 
@@ -227,12 +232,25 @@ export type RootStackParamList = {
     language: Language;
     studentName: string;
     sessionId: string;
+    timeTakenMs?: number;
+    categoryScores?: {
+      cognitive: number;
+      behavioral: number;
+      emotional: number;
+      learningStyle: number | null;
+    };
   };
 
   GameIntro: {
     studentId: string;
     studentName: string;
     language: string;
+    categoryScores?: {
+      cognitive: number;
+      behavioral: number;
+      emotional: number;
+      learningStyle: number | null;
+    };
   };
 
   Game1: {
@@ -248,6 +266,36 @@ export type RootStackParamList = {
     score: number;
     total: number;
     correctAnswers: boolean[];
+  };
+
+  PlaygroundHub: {
+    studentId: string;
+    studentName: string;
+    language: string;
+    categoryScores?: {
+      cognitive: number;
+      behavioral: number;
+      emotional: number;
+      learningStyle: number | null;
+    };
+  };
+
+  TreasurePath: {
+    studentId: string;
+    studentName: string;
+    language: string;
+  };
+
+  PatternTrain: {
+    studentId: string;
+    studentName: string;
+    language: string;
+  };
+
+  MatchShadow: {
+    studentId: string;
+    studentName: string;
+    language: string;
   };
 
   // Legacy routes (kept for backward compatibility)

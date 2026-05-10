@@ -60,10 +60,6 @@ export default function Game1ResultsScreen({ route, navigation }: Props) {
 
           {/* ── TOP BAR ─────────────────────────────────────────────── */}
           <View style={styles.topBar}>
-            <Pressable style={styles.homeBtn} onPress={() => navigation.popToTop()}>
-              <Text style={styles.homeBtnIcon}>🏠</Text>
-            </Pressable>
-
             <Text style={styles.topTitle}>Results</Text>
 
             <View style={styles.scoreBadge}>
@@ -160,22 +156,13 @@ export default function Game1ResultsScreen({ route, navigation }: Props) {
         </Animated.View>
       </ScrollView>
 
-      {/* ── BOTTOM BUTTONS — fixed at bottom ─────────────────────── */}
+      {/* ── BOTTOM BUTTON — fixed at bottom ──────────────────────── */}
       <View style={styles.btnRow}>
         <Pressable
-          style={({ pressed }) => [styles.tryBtn, pressed && { opacity: 0.85 }]}
-          onPress={() => navigation.replace('Game1', { studentId, studentName, language })}
+          style={({ pressed }) => [styles.nextBtn, { flex: 1 }, pressed && { opacity: 0.85 }]}
+          onPress={() => navigation.navigate('PlaygroundHub', { studentId, studentName, language })}
         >
-          <Text style={styles.tryBtnIcon}>↺</Text>
-          <Text style={styles.tryBtnText}>Try Again</Text>
-        </Pressable>
-
-        <Pressable
-          style={({ pressed }) => [styles.nextBtn, pressed && { opacity: 0.85 }]}
-          onPress={() => navigation.popToTop()}
-        >
-          <Text style={styles.nextBtnText}>Next Activity</Text>
-          <Text style={styles.nextBtnIcon}>→</Text>
+          <Text style={styles.nextBtnText}>🏠  Home</Text>
         </Pressable>
       </View>
 

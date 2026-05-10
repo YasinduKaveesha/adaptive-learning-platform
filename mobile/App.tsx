@@ -17,6 +17,10 @@ import FeedbackScreen from './src/screens/FeedbackScreen';
 import Game1ResultsScreen from './src/screens/Game1ResultsScreen';
 import Game1Screen from './src/screens/Game1Screen';
 import GameIntroScreen from './src/screens/GameIntroScreen';
+import MatchShadowScreen from './src/screens/MatchShadowScreen';
+import PatternTrainScreen from './src/screens/PatternTrainScreen';
+import PlaygroundHubScreen from './src/screens/PlaygroundHubScreen';
+import TreasurePathScreen from './src/screens/TreasurePathScreen';
 import InstructionsScreen from './src/screens/InstructionsScreen';
 import ProgressScreen from './src/screens/ProgressScreen';
 import ResultsScreen from './src/screens/ResultsScreen';
@@ -40,6 +44,10 @@ const linking = {
       GameIntro: 'game-intro',
       Game1: 'game1',
       Game1Results: 'game1-results',
+      PlaygroundHub: 'playground-hub',
+      TreasurePath: 'treasure-path',
+      PatternTrain: 'pattern-train',
+      MatchShadow: 'match-shadow',
       Screening: 'screening',
       Grade5Screening: 'grade5-screening',
       Grade5Results: 'grade5-results',
@@ -73,7 +81,7 @@ export default function App() {
           screenOptions={{
             headerShown: false,
             contentStyle: { backgroundColor: COLORS.background },
-            animationEnabled: true,
+            animation: 'default',
             gestureEnabled: true,
           }}
         >
@@ -86,6 +94,10 @@ export default function App() {
           <Stack.Screen name="GameIntro" component={GameIntroScreen} />
           <Stack.Screen name="Game1" component={Game1Screen} />
           <Stack.Screen name="Game1Results" component={Game1ResultsScreen} />
+          <Stack.Screen name="PlaygroundHub" component={PlaygroundHubScreen} options={{ animation: 'fade' }} />
+          <Stack.Screen name="TreasurePath" component={TreasurePathScreen} />
+          <Stack.Screen name="PatternTrain" component={PatternTrainScreen} />
+          <Stack.Screen name="MatchShadow" component={MatchShadowScreen} />
 
           <Stack.Screen name="Screening" component={ScreeningScreen} />
           <Stack.Screen

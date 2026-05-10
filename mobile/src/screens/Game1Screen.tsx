@@ -148,7 +148,7 @@ export default function Game1Screen({ navigation, route }: Props) {
 
       {/* ── Top bar with progress bar ─────────────────────────────────────── */}
       <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => navigation.popToTop()} style={styles.closeBtn}>
+        <TouchableOpacity onPress={() => navigation.navigate('PlaygroundHub', { studentId, studentName, language })} style={styles.closeBtn}>
           <Text style={styles.closeBtnText}>✕</Text>
         </TouchableOpacity>
         <View style={styles.progressTrack}>

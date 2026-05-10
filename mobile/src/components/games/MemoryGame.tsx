@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { COLORS, RADIUS, SPACING, TYPOGRAPHY } from '../../constants/theme';
+import { COLORS, RADIUS, SPACING } from '../../constants/theme';
 import type { Item } from '../../types';
 import AnswerGrid from './shared/AnswerGrid';
 
@@ -26,21 +26,34 @@ export default function MemoryGame({ item, phase, onStudyReady, onAnswer }: Prop
 function StudyPhase({ item, onReady }: { item: Item; onReady: () => void }) {
   return (
     <>
-      <Text style={styles.instructionLabel}>👀 Study carefully</Text>
-      <Text style={styles.prompt}>{item.study_prompt}</Text>
-
-      <View style={styles.sequenceRow}>
-        {item.study_items.map((val, idx) => (
-          <View key={idx} style={styles.chip}>
-            <Text style={styles.chipText}>{val}</Text>
-          </View>
-        ))}
+      <View style={styles.labelRow}>
+        <Text style={styles.emoji}>👀</Text>
+        <Text style={[styles.instructionLabel, { color: COLORS.working_memory }]}>
+          STUDY CAREFULLY
+        </Text>
       </View>
 
-      <Text style={styles.hint}>Remember the order — you'll need it next!</Text>
+      <Text style={styles.prompt}>{item.study_prompt}</Text>
+
+      {/* Sequence tiles */}
+      <View style={[styles.sequenceBox, { marginTop: 8 }]}>
+        <View style={styles.sequenceRow}>
+          {item.study_items.map((val, idx) => (
+            <React.Fragment key={idx}>
+              <View style={[styles.chip, { backgroundColor: COLORS.working_memory }]}>
+                <Text style={styles.chipText}>{val}</Text>
+              </View>
+              {idx < item.study_items.length - 1 && (
+                <Text style={styles.arrow}>→</Text>
+              )}
+            </React.Fragment>
+          ))}
+        </View>
+        <Text style={styles.hint}>✨ Remember the order!</Text>
+      </View>
 
       <Pressable
-        style={({ pressed }) => [styles.readyBtn, pressed && styles.readyBtnPressed]}
+        style={({ pressed }) => [styles.readyBtn, { marginTop: 15 }, pressed && styles.readyBtnPressed]}
         onPress={onReady}
       >
         <Text style={styles.readyBtnText}>✅  I Remember!</Text>
@@ -50,11 +63,21 @@ function StudyPhase({ item, onReady }: { item: Item; onReady: () => void }) {
 }
 
 function AnswerPhase({ item, onAnswer }: { item: Item; onAnswer: (c: string) => void }) {
+  const parts = item.question.split('\n\n');
+  const instruction = parts[0];
+
   return (
     <>
-      <Text style={styles.instructionLabel}>🤔 Now answer</Text>
-      <Text style={styles.question}>{item.question}</Text>
-      <AnswerGrid options={item.options} onAnswer={onAnswer} color={COLORS.primary} />
+      <View style={styles.labelRow}>
+        <Text style={styles.emoji}>🤔</Text>
+        <Text style={[styles.instructionLabel, { color: COLORS.working_memory }]}>NOW ANSWER</Text>
+      </View>
+
+      <View style={styles.questionBox}>
+        <Text style={styles.questionText}>{instruction}</Text>
+      </View>
+
+      <AnswerGrid options={item.options} onAnswer={onAnswer} color={COLORS.working_memory} />
     </>
   );
 }
@@ -62,68 +85,100 @@ function AnswerPhase({ item, onAnswer }: { item: Item; onAnswer: (c: string) => 
 const styles = StyleSheet.create({
   container: { gap: SPACING.sm },
 
+  labelRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  emoji: { fontSize: 16 },
   instructionLabel: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: COLORS.working_memory,
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 1.2,
+    fontFamily: 'Poppins_800ExtraBold',
     textTransform: 'uppercase',
-    letterSpacing: 1,
   },
+
   prompt: {
-    ...TYPOGRAPHY.bodyMedium,
-    color: COLORS.textPrimary,
+    fontSize: 15,
     fontWeight: '600',
+    color: '#333',
+    fontFamily: 'Poppins_600SemiBold',
+  },
+
+  sequenceBox: {
+    backgroundColor: '#EDF7FF',
+    borderRadius: RADIUS.xl,
+    borderWidth: 2,
+    borderColor: COLORS.working_memory,
+    padding: SPACING.md,
+    gap: SPACING.sm,
+    alignItems: 'center',
   },
   sequenceRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: SPACING.sm,
-    backgroundColor: '#F5EEFF',
-    borderRadius: RADIUS.lg,
-    padding: SPACING.md,
+    gap: 6,
+    alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: COLORS.working_memory,
   },
   chip: {
-    backgroundColor: COLORS.working_memory,
-    borderRadius: RADIUS.md,
-    paddingVertical: SPACING.sm,
-    paddingHorizontal: SPACING.md,
-    minWidth: 52,
+    borderRadius: RADIUS.lg,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    minWidth: 54,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
+    shadowRadius: 4,
+    elevation: 3,
   },
   chipText: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: '800',
     color: '#fff',
+    fontFamily: 'Poppins_800ExtraBold',
+  },
+  arrow: {
+    fontSize: 18,
+    color: COLORS.working_memory,
+    fontWeight: '700',
   },
   hint: {
-    fontSize: 13,
-    color: COLORS.textSecondary,
-    textAlign: 'center',
+    fontSize: 12,
+    color: '#5C85A0',
     fontStyle: 'italic',
+    fontFamily: 'Poppins_500Medium',
   },
+
   readyBtn: {
     backgroundColor: COLORS.primary,
-    borderRadius: RADIUS.lg,
-    paddingVertical: SPACING.md,
+    borderRadius: RADIUS.xl,
+    paddingVertical: 14,
     alignItems: 'center',
-    marginTop: SPACING.sm,
+    shadowColor: COLORS.primaryDark,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
   },
-  readyBtnPressed: {
-    opacity: 0.85,
-  },
+  readyBtnPressed: { opacity: 0.88, transform: [{ scale: 0.97 }] },
   readyBtnText: {
     fontSize: 16,
     fontWeight: '800',
     color: '#fff',
+    fontFamily: 'Poppins_800ExtraBold',
   },
-  question: {
-    ...TYPOGRAPHY.bodyMedium,
-    color: COLORS.textPrimary,
+
+  questionBox: {
+    backgroundColor: '#EDF7FF',
+    borderRadius: RADIUS.xl,
+    borderLeftWidth: 4,
+    borderLeftColor: COLORS.working_memory,
+    padding: SPACING.md,
+  },
+  questionText: {
+    fontSize: 20,
     fontWeight: '700',
-    fontSize: 18,
-    lineHeight: 26,
+    color: '#1A1A2E',
+    lineHeight: 30,
+    fontFamily: 'Poppins_700Bold',
   },
 });
